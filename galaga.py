@@ -2,6 +2,7 @@ import pgzrun
 
 WIDTH = 800
 HEIGHT = 800
+
 game_state = "launch"
 score = 0
 end_message = ""
@@ -49,10 +50,10 @@ def draw():
     elif game_state == "start":
         galaga.draw()
 
+
         for enemy_row in enemies:
             for enemy in enemy_row:
                 enemy.draw()
-
 
         
         for bullet in bullets:
@@ -61,7 +62,9 @@ def draw():
         screen.draw.text(f"Score: {score}", (5,5), color = "black")
 
     elif game_state == "over":
-        screen.draw.text(end_message, center =(WIDTH/2,HEIGHT/2), color = "black")
+        screen.fill ("red")
+        screen.draw.text(end_message, fontsize = 45,center =(WIDTH/2,HEIGHT/2), color = "black")
+        screen.draw.text(f"You have scored {score}",fontsize = 45, center = (WIDTH/2, HEIGHT/2 + 30), color = "black")
 
 def update():
     global direction, score, end_message, game_state
@@ -71,14 +74,22 @@ def update():
     if keyboard.D and galaga.x <= WIDTH:
         galaga.x += 10
 
-    if enemies[0][-1].x >= WIDTH or enemies[0][0].x <= 0:
-        direction *= -1
-        move_down = True
+    if any (enemies):
+        if enemies[0][-1].x >= WIDTH or enemies[0][0].x <= 0:
+            direction *= -1
+            move_down = True
+    else: 
+        end_message = "You have lost to the enemies!"
+        game_state = "over"
+
+
+
+       
     for enemy_row in enemies:
         for enemy in enemy_row:
-            enemy.x += 2 * direction
+            enemy.x += 3 * direction
             if move_down:
-                enemy.y += 20
+                enemy.y += 40
 
     for bullet in bullets:
         bullet.y -= 10
@@ -97,14 +108,13 @@ def update():
                     score += 1
                     print (enemies)
    # if len (enemies) == 0 :
-    empty_row = 0
+    
     for enemy_row in enemies:
-        if len (enemy_row) == 0:
-            empty_row += 1
-            if empty_row == 5:
-                end_message = "Well done! You have won the Game!"
+        for enemy in enemy_row:
+            if enemy.colliderect(galaga):
+                end_message = "You have lost to the enemies!"
                 game_state = "over"
-
+        
 
 
 
