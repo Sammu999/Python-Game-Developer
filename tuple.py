@@ -22,4 +22,19 @@ nums = 1,5,7
 print (type (nums))
 
 #nums.append (9)
-nums.pop
+#nums.pop
+
+#Homework
+temperature = (28, 31, 29, 33, 35, 30, 27, 32, 34, 29)
+
+print("Day 2 to Day 5:", temperature[1:5])
+
+print("Max temperature:", max(temperature))
+print("Min temperature:", min(temperature))
+
+above_30 = sum(t > 30 for t in temperature)
+print("Days above 30°C:", above_30)
+
+temp_list = list(temperature)
+temp_list.append(33)
+print("Updated list:", temp_list)

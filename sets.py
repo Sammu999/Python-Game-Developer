@@ -32,3 +32,15 @@ print (fruits.symmetric_difference(citrus_fruits))
 print (fruits ^ citrus_fruits)
 
 
+#Homework
+
+student1 = {"Math", "Science", "English"}
+student2 = {"Science", "History", "Spanish"}
+
+print("Common subjects:", student1 & student2)
+print("All subjects:", student1 | student2)
+print("Only student1 subjects:", student1 - student2)
+print("Same subjects?", student1 == student2)
+
+
+
